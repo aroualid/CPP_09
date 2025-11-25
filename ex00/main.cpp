@@ -1,7 +1,5 @@
-//#include "BitcoinExchange.hpp"
-#include <iostream>
-#include <fstream>
-#include <string>
+#include "BitcoinExchange.hpp"
+
 
 int main(int argc, char **av)
 {
@@ -10,12 +8,16 @@ int main(int argc, char **av)
 		std::ifstream file(av[1]);
 		std::string line;
 		
+		BitcoinExchange btc;
+		
 		if (file.is_open())
 		{
-			while (std::getline(file,line))
-			{
+			btc.fillData();	
+			/*while (std::getline(file,line))
+			{				
 				std::cout << line << std::endl;
-			}
+			}*/
+			btc.printTable();
 
 		}
 		else
