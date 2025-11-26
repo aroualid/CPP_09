@@ -1,0 +1,17 @@
+2011-01-03 => 3 = 0.9
+2011-01-03 => 2 = 0.6
+2011-01-03 => 1 = 0.3
+2011-01-03 => 1.2 = 0.36
+2011-01-09 => 1 = 0.32
+Error: not a positive number 
+Error : Bitcoin did not exist before 2009, try again 
+2012-01-11 => 1 = 7.1
+Error: too large a number 
+Error : maximum 30 days in April, June, September and November
+2015-02-29 => 4 = 1008.44
+2016-02-29 => 4 = 1727.56
+Error : Bitcoin did not exist before 2009, try again 
+2025-02-01 => 4 = 188464
+Error : not a valid value format 
+Error : not a leap year
+Error : not a leap year
