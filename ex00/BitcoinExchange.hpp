@@ -16,10 +16,15 @@ public:
 	BitcoinExchange &operator=(BitcoinExchange const & src);
 	void fillData();
 	long dateFormat(std::string);
-	void printTable();
+	void print_result(long, long double, std::string); 
+//	void printTable();
 private:
 	std::map<int, std::string> table;
+	/*int year;
+	int month;
+	int day;*/
 };
 
+void check_result(std::ifstream&, BitcoinExchange);
 
 #endif
