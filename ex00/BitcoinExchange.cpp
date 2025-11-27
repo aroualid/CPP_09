@@ -286,7 +286,8 @@ void BitcoinExchange::print_result(long date, long double value, std::string new
 	std::cout << " => ";
 	std::cout << value << " = ";
 	double long res = strtold(table[date].c_str(), NULL);
-	std::cout << res * value << std::endl;
+	std::cout << res * value /*<< " [ " << date << " | " << table[date] << " ] "*/ << std::endl;
+
 
 	//std::cout << table[date] << std::endl;
 	
