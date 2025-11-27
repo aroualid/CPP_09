@@ -3,3 +3,4 @@ obj/
 *.d
 a.out
 btc
+tester.sh
