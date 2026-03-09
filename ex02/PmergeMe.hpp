@@ -17,3 +17,6 @@ public:
 	~PmergeMe();
 	PmergeMe &operator=(PmergeMe const & src); 
 };
+
+void MergeVector(std::vector<int> vec);
+
