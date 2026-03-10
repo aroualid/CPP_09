@@ -18,7 +18,7 @@ int check_args(int ac, char **av)
 				}
 			}
 			long val = atol(av[i]);
-			if (val > std::numeric_limits<int>::max() || val <= 0 )
+			if (val > std::numeric_limits<int>::max() || val < 0 )
 			{
 				std::cerr << "Error: invalid argument, too big or too low\n";
 				return 0;
@@ -36,17 +36,17 @@ int check_args(int ac, char **av)
 		}
 	}
 	return (1);
-}
+} 
 
 int main(int ac, char **av)
 {
 	if (check_args(ac, av) == 0)
 		return 0;
-	std::vector<int> vec;
-	std::deque<int> deq;
-
+	PmergeMe Pme;
 	for (int i = 1; av[i]; i++)
-		vec.push_back(atoi(av[i]));
-	for (int j = 1; av[j]; j++)
-		vec.push_back(atoi(av[j]));
+		Pme.vec.push_back(atoi(av[i]));
+	Pme.SortVector(2);
+/*	for (int j = 1; av[j]; j++)
+		Pme.deq.push_back(atoi(av[j]));
+*/
 }
