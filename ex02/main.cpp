@@ -1,6 +1,5 @@
 #include "PmergeMe.hpp"
 
-
 int check_args(int ac, char **av)
 {
 	if (ac < 3)
@@ -43,15 +42,37 @@ int main(int ac, char **av)
 	if (check_args(ac, av) == 0)
 		return 0;
 	PmergeMe Pme;
+	std::cout << "Before:	";
+	for (int i = 1; av[i]; i++)
+		std::cout <<	av[i] << " ";
+	std::cout << std::endl;
 	for (int i = 1; av[i]; i++)
 		Pme.vec.push_back(atoi(av[i]));
-	Pme.SortVector(2);
 	for (int j = 1; av[j]; j++)
 		Pme.deq.push_back(atoi(av[j]));
-	Pme.SortDeque(2);
 
-	
-  std::cout << "vector : ";
+	t_time v;
+	t_time d;
+	v.start = std::clock();
+	Pme.SortVector(2);
+	v.end = std::clock();
+
+	d.start = std::clock();
+	Pme.SortDeque(2);
+	d.end = std::clock();
+
+	std::cout << "After:	";
+	for (std::vector<int>::iterator it = Pme.vec.begin(); it != Pme.vec.end(); it++)
+		std::cout << *it << " ";
+	std::cout << std::endl;
+	std::cout << "Time to process a range of "<< ac - 1<< " elements with std::vector : ";
+	std::cout << std::fixed << std::setprecision(5);
+  std::cout << 1000.0 * (v.end - v.start) / CLOCKS_PER_SEC << "ms\n";
+	std::cout << "Time to process a range of "<< ac - 1<< " elements with std::deque : ";
+	std::cout << std::fixed << std::setprecision(5);
+  std::cout << 1000.0 * (d.end - d.start) / CLOCKS_PER_SEC << "ms\n";
+	/*
+  std::cout << "vect : ";
 	for (size_t z = 0; z < Pme.vec.size(); z++)
 		std::cout << Pme.vec[z] << " ";
   std::cout << std::endl;
@@ -59,5 +80,5 @@ int main(int ac, char **av)
   std::cout << "deque : ";
 	for (size_t z = 0; z < Pme.deq.size(); z++)
 		std::cout << Pme.deq[z] << " ";
-  std::cout << std::endl;
+  std::cout << std::endl;*/
 }

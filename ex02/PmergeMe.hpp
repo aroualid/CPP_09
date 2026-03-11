@@ -1,4 +1,6 @@
 #pragma once
+
+#include <iomanip>
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -8,6 +10,13 @@
 #include <limits>
 #include <set>
 #include <algorithm>
+#include <ctime>
+
+typedef struct s_time
+{
+	std::clock_t start;
+	std::clock_t end;
+} t_time;
 
 class PmergeMe {
 
@@ -17,7 +26,7 @@ public:
 	~PmergeMe();
 	PmergeMe &operator=(PmergeMe const & src); 
 	int SortVector(int size);
-	void MakePairsVector(int size);
+	void MakePairsVector(int size); 
 	std::vector<int> PushOnMain(int size, std::vector<int> v, int pair);
 
 	int SortDeque(int size);
