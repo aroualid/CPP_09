@@ -19,8 +19,7 @@ public:
 	int SortVector(int size);
 	void MakePairsVector(int size);
 //	void SwapElementsVector(int size, int i);
-	std::vector<int> PushOnMain(int size, std::vector<int> v);
-
+	std::vector<int> PushOnMain(int size, std::vector<int> v, int pair);
 
 
 

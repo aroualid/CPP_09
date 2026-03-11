@@ -35,20 +35,34 @@ void PmergeMe::MakePairsVector(int size)
 	std::cout << std::endl;
 }
 
-std::vector<int> PmergeMe::PushOnMain(int size, std::vector<int> v)
+std::vector<int> PmergeMe::PushOnMain(int size, std::vector<int> v, int pair)
 {
+	std::vector<int>::iterator it = (v.begin()  + pair * size);
+
+	while (*it)
+	{
+		vlo.push_back(*it);	
+		it++;
+	}
+	int p = 0;
 	std::vector<int> vp;
 	for (int i = 0; i < size / 2; i++) // push on main b1;
 	{
 		vp.push_back(v[i]);
 	}
-	for (size_t k = size / 2; k < v.size(); k+= size) // push all a on main
+	for (size_t k = size / 2; k < v.size(); k+=size) // push all a on main
 	{
-		std::cout << "k = " << k << " | v[k] = " << v[k] << " | size = " << size << std::endl;
-		for (int j = k; j < size; j++)
+		if (p <  pair)
 		{
-			vp.push_back(v[j]);
+			for (int j = 0; j < size / 2; j++)
+				vp.push_back(v[j + k]);
+			if (pair > 1)
+			{
+				for (int l = size/2; l < size; l++)
+					vpend.push_back(v[l+k]);
+			}
 		}
+		p++;	
 	}
 	for (size_t z = 0; z < vlo.size(); z++)
 		vp.push_back(vlo[z]);
@@ -65,17 +79,26 @@ int PmergeMe::SortVector(int size)
 		MakePairsVector(size);
 		SortVector(size *2);
 	}
-	std::vector<int>::iterator it = (vec.begin()  + pair * size);
 	vlo.erase(vlo.begin(), vlo.end());	
-	while (*it)
-	{
-		vlo.push_back(*it);	
-		it++;
-	}
+
 	if (vec.size() / (size *2) < 1)
-		vmain = PushOnMain(size, vec);
+		vmain = PushOnMain(size, vec, pair);
 	else
-		vmain = PushOnMain(size, vmain);
+		vmain = PushOnMain(size, vmain, pair);
+
+	std::cout << "_____________________________________________________________\n";
+	std::cout << "Left over =    ";
+	for (size_t l = 0; l < vlo.size(); l++)
+		std::cout << vlo[l] << " ";
+	std::cout << "\n";
+
+	std::cout << "Pend =   ";
+	for (size_t p = 0; p < vpend.size(); p++)
+		std::cout << vpend[p] << " ";
+	std::cout << "\n";
+
+	vpend.erase(vpend.begin(), vpend.end());
+
 	for (size_t z = 0; z < vmain.size(); z++)
 	{
 		if ((int)z == size / 2 || z == vmain.size() - vlo.size())
