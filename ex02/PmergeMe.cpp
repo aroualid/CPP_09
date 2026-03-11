@@ -276,8 +276,8 @@ int PmergeMe::SortDeque(int size)
         return 0;
     else
     {
-        MakePairsVector(size);
-        SortVector(size * 2);
+        MakePairsDeque(size);
+        SortDeque(size * 2);
     }
     
     dlo.erase(dlo.begin(), dlo.end());    
@@ -286,7 +286,7 @@ int PmergeMe::SortDeque(int size)
     int blockSize = size / 2; 
 
     if (dlo.size() >= (size_t)blockSize)
-		{
+	{
         for (int i = 0; i < blockSize; i++)
             dpend.push_back(dlo[i]);
         dlo.erase(dlo.begin(), dlo.begin() + blockSize);
@@ -308,7 +308,7 @@ int PmergeMe::SortDeque(int size)
         int right = (dmain.size() / blockSize) - 1;
 
         while (left <= right)
-				{
+			{
             int mid = left + (right - left) / 2;
             
             if (dmain[(mid + 1) * blockSize - 1] < valueToCompare)
