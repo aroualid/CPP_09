@@ -1,4 +1,5 @@
 obj/
+PmergeMe
 *.o
 *.d
 a.out
