@@ -18,20 +18,23 @@ public:
 	PmergeMe &operator=(PmergeMe const & src); 
 	int SortVector(int size);
 	void MakePairsVector(int size);
-//	void SwapElementsVector(int size, int i);
 	std::vector<int> PushOnMain(int size, std::vector<int> v, int pair);
 
+	int SortDeque(int size);
+	void MakePairsDeque(int size);
+	std::deque<int> PushOnMain(int size, std::deque<int> v, int pair);
 
 
 	std::vector<int> vec;
 	std::vector<int> vmain;
 	std::vector<int> vpend;
 	std::vector<int> vlo;
-	/*std::deque<int> deq;
+
+	std::deque<int> deq;
 	std::deque<int> dmain;
 	std::deque<int> dpend;
 	std::deque<int> dlo;
-*/
+
 };
 
 

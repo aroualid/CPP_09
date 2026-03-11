@@ -44,11 +44,20 @@ int main(int ac, char **av)
 		return 0;
 	PmergeMe Pme;
 	for (int i = 1; av[i]; i++)
-	{
 		Pme.vec.push_back(atoi(av[i]));
-	}
 	Pme.SortVector(2);
-/*	for (int j = 1; av[j]; j++)
+	for (int j = 1; av[j]; j++)
 		Pme.deq.push_back(atoi(av[j]));
-*/
+	Pme.SortDeque(2);
+
+	
+  std::cout << "vector : ";
+	for (size_t z = 0; z < Pme.vec.size(); z++)
+		std::cout << Pme.vec[z] << " ";
+  std::cout << std::endl;
+
+  std::cout << "deque : ";
+	for (size_t z = 0; z < Pme.deq.size(); z++)
+		std::cout << Pme.deq[z] << " ";
+  std::cout << std::endl;
 }
