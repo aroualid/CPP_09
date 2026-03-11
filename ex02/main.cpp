@@ -28,7 +28,7 @@ int check_args(int ac, char **av)
 			{
 				if (set.count(atoi(av[i])))
 				{
-					std::cerr << "Error: twice the same numberr\n";
+					std::cerr << "Error: twice the same number\n";
 					return 0;
 				}
 				set.insert(atoi(av[i]));

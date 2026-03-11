@@ -55,17 +55,14 @@ std::vector<int> buildInsertionOrder(int numPends)
     std::vector<int> jacob = generateJacobsthal(numPends);
     int lastJacob = 1;
 
-    // Le premier pend (P1) est traité à part ou inséré en premier
     order.push_back(1); 
 
     for (size_t i = 1; i < jacob.size(); ++i) 
 	{
         int currentJacob = jacob[i];
         
-        // On part du nombre de Jacobsthal actuel (borné par le nombre de pends)
         int start = (currentJacob > numPends) ? numPends : currentJacob;
         
-        // On redescend jusqu'au dernier nombre de Jacobsthal traité
         for (int j = start; j > lastJacob; --j)
             order.push_back(j);
         lastJacob = start;
@@ -73,42 +70,6 @@ std::vector<int> buildInsertionOrder(int numPends)
     }
     return order;
 }
-/*
-std::vector<int> PmergeMe::PushOnMain(int size, std::vector<int> v, int pair)
-{
-	int p = 0;
-	std::vector<int> vp;
-	for (int i = 0; i < size / 2; i++) // push on main b1;
-		vp.push_back(v[i]);
-	for (size_t k = size / 2; k < v.size(); k+=size) // push all a on main
-	{
-		if (p <  pair)
-		{
-			for (int j = 0; j < size / 2; j++)
-				vp.push_back(v[j + k]);
-			if (pair > 1)
-			{
-				for (int l = size/2; l < size; l++)
-					vpend.push_back(v[l+k]);
-			}
-		}
-		p++;	
-	}
-	std::vector<int>::iterator it = (v.begin()  + vp.size() + vpend.size());
-
-	while (*it < (int)v.size())
-	{
-		vlo.push_back(*it);	
-		it++;
-	}
-	if (vpend.empty())
-	{
-		for (size_t z = 0; z < vlo.size(); z++)
-			vp.push_back(vlo[z]);
-	}	
-	return vp;
-}
-*/
 
 std::vector<int> PmergeMe::PushOnMain(int size, std::vector<int> v, int pair)
 {
@@ -139,52 +100,6 @@ std::vector<int> PmergeMe::PushOnMain(int size, std::vector<int> v, int pair)
 
     return vp;
 }
-
-/*
-
-int PmergeMe::SortVector(int size)
-{
-	size_t pair = vec.size() / size;
-	if (pair < 1)
-		return 0;
-	else
-	{
-		MakePairsVector(size);
-		SortVector(size *2);
-	}
-	vlo.erase(vlo.begin(), vlo.end());	
-
-	if (vec.size() / (size *2) < 1)
-		vmain = PushOnMain(size, vec, pair);
-	else
-		vmain = PushOnMain(size, vmain, pair);
-	std::cout << "_____________________________________________________________\n";
-	if (!vpend.empty())
-	{
-		std::cout << "PEND : ";
-		for (size_t i = 0; i < vpend.size(); i++)
-			std::cout << vpend[i] << " ";
-		std::cout << std::endl;
-	}
-	std::cout << "Left over =    ";
-	for (size_t l = 0; l < vlo.size(); l++)
-		std::cout << vlo[l] << " ";
-	std::cout << "\n";
-
-	std::cout << "Pend =   ";
-	for (size_t p = 0; p < vpend.size(); p++)
-		std::cout << vpend[p] << " ";
-	std::cout << "\n";
-
-
-	vpend.erase(vpend.begin(), vpend.end());
-
-	for (size_t z = 0; z < vmain.size(); z++)
-        std::cout << vmain[z] << " ";
-	std::cout << std::endl;
-	return 1;
-}
-*/
 
 int PmergeMe::SortVector(int size)
 {
