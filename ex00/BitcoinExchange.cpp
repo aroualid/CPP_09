@@ -56,12 +56,12 @@ void BitcoinExchange::fillData()
 		}
 	}
 	else
-		std::cout << "Error: could not open or read the file\n";
+		std::cout << "Error : could not open or read the file\n";
 
 }
 
 
-bool check_year(std::string year)
+int check_year(std::string year)
 {
 	if (year.length() == 4)
 	{
@@ -69,7 +69,6 @@ bool check_year(std::string year)
 		{
 			if (isdigit(year[i]) == 0)
 			{
-				std::cout << "Error : not a valid year format \n";
 				return (0);
 			}
 		}
@@ -77,18 +76,17 @@ bool check_year(std::string year)
 		if (year_long < 2009)
 		{
 			std::cout << "Error : Bitcoin did not exist before 2009, try again \n";
-			return (0);
+			return (2);
 		}
 	}
 	else
 	{
-		std::cout << "Error : not a valid year format \n";
 		return (0);
 	}
 	return (1);
 }
 
-bool check_month(std::string month)
+int check_month(std::string month)
 {
 	if (month.length() == 2)
 	{
@@ -96,38 +94,38 @@ bool check_month(std::string month)
 		{
 			if (isdigit(month[i]) == 0)
 			{
-				std::cout << "Error : not a valid month format \n";
 				return (0);
 			}
 		}
 		long month_long = std::atol(month.c_str());
 		if (month_long < 1 || month_long > 12)
 		{
-			std::cout << "Error : not a valid month\n";
 			return (0);
 		}
 	}
 	else
 	{
-		std::cout << "Error : not a valid month format \n";
 		return (0);
 	}
 	return (1);
 }
 
-bool is_a_valid_day(long day, long month, long year)
+int is_a_valid_day(long day, long month, long year)
 {
 	long max = 0;
 	int err = 0;
-	if (month == 2 && (year % 400 != 0 && year % 100 == 0 && year % 4 == 0))
+	if (month == 2)
 	{
-		max = 28;
-		err = 1;
-	}
-	if (month == 2 && (year % 400 == 0 && year % 100 != 0 && year % 4 == 0))
-	{
-		max = 29;
-		err = 2;
+		if ((year % 4 == 0 && year % 100 != 0)  || (year % 400 == 0))
+		{
+			max = 29;
+			err = 2;
+		}
+		else
+		{
+			max = 28;
+			err = 1;
+		}
 	}
 	if (month == 4 || month == 6 || month == 9 || month == 11)
 	{
@@ -158,7 +156,7 @@ bool is_a_valid_day(long day, long month, long year)
 	return (1);
 }
 
-bool check_day(std::string day, std::string month, std::string year)
+int check_day(std::string day, std::string month, std::string year)
 {
 	if (day.length() == 2)
 	{
@@ -166,14 +164,12 @@ bool check_day(std::string day, std::string month, std::string year)
 		{
 			if (isdigit(day[i]) == 0)
 			{
-				std::cout << "Error : not a valid day format \n";
 				return (0);
 			}
 		}
 		long day_long = std::atol(day.c_str());
 		if (day_long < 0 || day_long > 31)
 		{
-			std::cout << "Error : not a valid day\n";
 			return (0);
 		}
 		long month_long = std::atol(month.c_str());
@@ -181,21 +177,19 @@ bool check_day(std::string day, std::string month, std::string year)
 		if (year_long == 2009 && month_long == 1 && day_long == 1)
 		{
 			std::cout << "Error : Bitcoin did not exist before this date try again \n";
-			return (0);
+			return (2);
 		}
 		if (is_a_valid_day(day_long, month_long, year_long) == 0)
-			return (0);
-
+			return (2);
 	}
 	else
 	{
-		std::cout << "Error : not a valid day format \n";
 		return (0);
 	}
 	return (1);
 }
 
-bool check_date(std::string date)
+int check_date(std::string date)
 {
 	std::string year;
 	std::string month;
@@ -210,51 +204,87 @@ bool check_date(std::string date)
 			month = date.substr(pos + 1, (pos2 - (pos + 1)));
 			day = date.substr(pos2 + 1);
 		}
-		else
+		else	
 			return (0);
 	}		
-	else
+	else	
 		return (0);
-	if (check_year(year) == 1)
+	int y = check_year(year);
+	if (y == 1)
 	{
-		if (check_month(month) == 1)
+		int m = check_month(month);
+		if (m == 1)
 		{
-			if (check_day(day, month, year) == 1)
-			{
-				
+			int d = check_day(day, month, year);
+			if (d == 1)
 				return (1);
+			else if (d == 2)
+			{
+				return 2;
 			}
 			return (0);
 		}
+		else if (m == 2)
+			return 2;
 		return (0);
+	}
+	else if (y == 2)
+	{
+		return 2;
 	}
 	return (0);
 			
 }
 
-bool check_value(std::string value)
+int check_value(std::string value)
 {
 	if (value.empty())
 	{
-		std::cout << "Error: bad input\n";
+		std::cout << "Error : value is empty\n";
 		return (0);
 	}
-	if (value[0]== '-')
+	if (value[0] == '-')
 	{
-		std::cout << "Error: not a positive number \n";
-		return (0);
-	}
-	if (value.length() >= 10)
-	{
-		std::cout << "Error: too large a number \n";
+		std::cout << "Error : not a positive number\n";
 		return (0);
 	}
 	for (unsigned long i = 0; i < value.length(); i++)
 	{
-		if (isdigit(value[i]) == 0 && value[i] != '.')
+		if (isdigit(value[i]) == 0 && (value[i] != '.'))
 		{
-			std::cout << "Error : not a valid value format \n";
+			std::cout << "Error : not a valid value format\n";
 			return (0);
+		}
+	}
+	if (value.size() >= 4)
+	{
+		size_t t = value.find(".");
+		if (t != value.npos)
+		{
+			if (t >= 4)
+			{
+				std::cout << "Error : too large a number \n";
+				return (0);	
+			}
+		}
+		if (t == value.npos)
+		{
+			if (value.size() == 4)
+			{
+				if (value[0] == '1' && value[1] == '0' && value[2] == '0' && value[3] == '0')
+					;
+				else
+				{
+					std::cout << "Error : too large a number \n";
+					return (0);
+				}
+			}
+			else
+			{
+				std::cout << "Error : too large a number \n";
+				return (0);
+			}
+
 		}
 	}
 	return (1);
@@ -299,29 +329,44 @@ void check_result(std::ifstream& file, BitcoinExchange btc)
 	std::string date;
 	std::string value;
 	
+	std::getline(file,line);
 	while (std::getline(file,line))
-	{	
+	{
+		if (line.empty())
+			continue ;
 		size_t pos = line.find('|');
-		date = line.substr(0, pos - 1);
-		value = line.substr(pos + 2);
-		if (check_date(date) == 1)
+		if (pos != line.npos)
 		{
-			long res;
-			std::string new_date;
-			for (size_t i = 0; i < date.length(); i++)
+			if (pos + 2 < line.size() && pos - 1 > 0)
 			{
-				if (date[i] != '-') {
-		            new_date += date[i];
-		        }
-		    }
-			res = std::atol(new_date.c_str());
-			if (check_value(value) == 1)
-			{
-				long double new_value = strtold(value.c_str(), NULL);
-				btc.print_result(res, new_value, new_date);
+				date = line.substr(0, pos - 1);
+				value = line.substr(pos + 2);
+				int c = check_date(date);
+				if (c == 1)
+				{
+					long res;
+					std::string new_date;
+					for (size_t i = 0; i < date.length(); i++)
+					{
+						if (date[i] != '-') {
+							new_date += date[i];
+						}
+					}
+					res = std::atol(new_date.c_str());
+					if (check_value(value) == 1)
+					{
+						long double new_value = strtold(value.c_str(), NULL);
+						btc.print_result(res, new_value, new_date);
+					}
+				}
+				else if (c == 0)
+					std::cout << "Error : bad input => " << line << std::endl;	
 			}
-
+			else
+				std::cout << "Error : bad input => " << line << std::endl;	
 		}
+		else
+			std::cout << "Error : bad input => " << line << std::endl;	
 //		else
 //			std::cout << "non\n";
 	}

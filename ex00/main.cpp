@@ -14,10 +14,10 @@ int main(int argc, char **av)
 			check_result(file, btc);
 		}
 		else
-			std::cout << "Error: could not open or read the file\n";
+			std::cerr << "Error: could not open or read the file\n";
 	}
 	else
-		std::cout << "Error: no file\n";
+		std::cerr << "Error: no file\n";
 }
 
  
