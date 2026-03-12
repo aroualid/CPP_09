@@ -65,12 +65,16 @@ int main(int ac, char **av)
 	for (std::vector<int>::iterator it = Pme.vec.begin(); it != Pme.vec.end(); it++)
 		std::cout << *it << " ";
 	std::cout << std::endl;
+	//std::cout << "After:	";
+	//for (std::deque<int>::iterator it = Pme.deq.begin(); it != Pme.deq.end(); it++)
+	//	std::cout << *it << " ";
+	//std::cout << std::endl;
 	std::cout << "Time to process a range of "<< ac - 1<< " elements with std::vector : ";
 	std::cout << std::fixed << std::setprecision(5);
-  std::cout << 1000.0 * (v.end - v.start) / CLOCKS_PER_SEC << "ms\n";
+	std::cout << 1000.0 * (v.end - v.start) / CLOCKS_PER_SEC << "ms\n";
 	std::cout << "Time to process a range of "<< ac - 1<< " elements with std::deque : ";
 	std::cout << std::fixed << std::setprecision(5);
-  std::cout << 1000.0 * (d.end - d.start) / CLOCKS_PER_SEC << "ms\n";
+	std::cout << 1000.0 * (d.end - d.start) / CLOCKS_PER_SEC << "ms\n";
 	/*
   std::cout << "vect : ";
 	for (size_t z = 0; z < Pme.vec.size(); z++)
